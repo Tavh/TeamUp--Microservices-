@@ -1,3 +1,3 @@
 # TeamUp--Microservices-
 
-Spring BOOT & Hibernate (JPA)
+Spring & Hibernate (JPA)
