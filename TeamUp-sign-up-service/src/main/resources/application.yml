@@ -1,0 +1,19 @@
+server:
+  port: 11000
+
+spring:
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  
+  datasource:
+    platform: mysql
+    url: jdbc:mysql://localhost:3306/team_up?serverTimezone=UTC
+    username: root
+    password: Srduicukzh1
+    driverClassName: com.mysql.cj.jdbc.Driver
+    
+  
