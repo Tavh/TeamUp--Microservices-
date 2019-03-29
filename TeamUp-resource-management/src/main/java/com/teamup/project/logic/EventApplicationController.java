@@ -20,13 +20,13 @@ import com.teamup.project.repository.UserRepos;
 @Controller
 public class EventApplicationController {
 	
+	@Autowired
 	private EventApplicationRepos eventAppRepos;
+	@Autowired
 	private UserRepos userRepos;
+	@Autowired
 	private EventRepos eventRepos;
 	
-	@Autowired
-	public EventApplicationController (EventApplicationRepos eventAppRepos, UserRepos userRepos, EventRepos eventRepos) {}
-
 	// ---------------------------------Creates an invitation ------------------------------------
 	
 	public long createEventApplication (long senderId, long eventId, EventApplicationEntity app) throws ApplicationException {

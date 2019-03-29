@@ -12,12 +12,10 @@ import com.teamup.project.utils.InputValidationUtils;
 
 @Controller
 public class UserController {
-
-	private UserRepos userRepos;
 	
 	@Autowired
-	public UserController (UserRepos userRepos) {}
-
+	private UserRepos userRepos;
+	
 	// ------------------------------------Creates a user-------------------------------------
 
 	public long createUser (UserEntity user) throws ApplicationException {

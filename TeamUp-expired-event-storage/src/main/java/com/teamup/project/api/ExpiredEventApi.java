@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.teamup.project.entities.EventEntity;
 import com.teamup.project.entities.ExpiredEventEntity;
 import com.teamup.project.enums.ErrorType;
 import com.teamup.project.exceptions.ApplicationException;
@@ -28,9 +29,11 @@ public class ExpiredEventApi {
 	// ----------------------------- Create --------------------------------------
 
 	@PostMapping
-	public void createExpiredEvent (@RequestBody ExpiredEventEntity expiredEvent) throws ApplicationException {
+	public void createExpiredEvent (@RequestBody EventEntity event) throws ApplicationException {
 
-		expiredEventController.createExpiredEvent(expiredEvent);
+		System.out.println(event);
+		
+		expiredEventController.createExpiredEvent(event);
 	}
 
 	// -----------------------------Getters--------------------------------------

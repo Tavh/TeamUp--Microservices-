@@ -15,35 +15,24 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 
-@Entity
-@Table (name="events")
 public class EventEntity {
 
-	@GeneratedValue
-	@Id
 	private long id;
 
-	@Column (name="event_title", nullable=false)
 	private String eventTitle;
 
-	@ManyToOne
 	private UserEntity eventLeader;
 
-	@ManyToMany (fetch=FetchType.EAGER)
 	private Collection<UserEntity> eventMembers;
 
-	@Column (name="start_date", nullable=false)
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy")
 	private Date startDate;
 
-	@Column (name="end_date", nullable=false)
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy")
 	private Date endDate;
 
-	@Column (name="event_text", nullable=true)
 	private String eventText;
 
-	@Column (name="private", nullable=false)
 	private boolean isEventPrivate;
 
 	public EventEntity() {

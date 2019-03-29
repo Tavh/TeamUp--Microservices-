@@ -45,10 +45,6 @@ public class EventRepos {
 	public void removeEvent(long id) throws ApplicationException {
 
 		EventEntity event = entityManager.find(EventEntity.class, id);
-		
-		if (event == null) {
-			throw new ApplicationException (ErrorType.DATA_NOT_FOUND, "The event you're trying to remove does not exist");
-		}
 
 		entityManager.remove(event);
 	}

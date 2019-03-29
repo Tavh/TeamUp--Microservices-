@@ -1,5 +1,6 @@
 package com.teamup.project.entities;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 
@@ -14,30 +15,29 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-
 @Entity
 @Table (name="expired_events")
 public class ExpiredEventEntity {
 
-	@GeneratedValue
 	@Id
+	@Column (name="id", nullable=false)
 	private long id;
-
+	
 	@Column (name="event_title", nullable=false)
 	private String eventTitle;
 
-	@ManyToOne
-	private UserEntity eventLeader;
+	@Column (name="event_leader", nullable=false)
+	private long eventLeaderId;
 
-	@ManyToMany (fetch=FetchType.EAGER)
-	private Collection<UserEntity> eventMembers;
+	@Column (name="event_member_identities", nullable=false)
+	private long[] eventMemberIdentities;
 
-	@Column (name="start_date", nullable=false)
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy")
+	@Column (name="start_date", nullable=false)
 	private Date startDate;
 
-	@Column (name="end_date", nullable=false)
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy")
+	@Column (name="end_date", nullable=false)
 	private Date endDate;
 
 	@Column (name="event_text", nullable=true)
@@ -49,23 +49,41 @@ public class ExpiredEventEntity {
 	public ExpiredEventEntity() {
 	}
 
-	public ExpiredEventEntity(String eventTitle, UserEntity eventLeader, Collection<UserEntity> eventMembers, Date startDate,
+	public ExpiredEventEntity(EventEntity event) {
+		this.id = event.getId();
+		this.eventTitle = event.getEventTitle();
+		this.eventLeaderId = event.getEventLeader().getId();
+
+		this.eventMemberIdentities = new long[event.getEventMembers().size()];
+		int index = 0;
+		for (UserEntity member : event.getEventMembers()) {
+			this.eventMemberIdentities[index] = member.getId();
+			index++;
+		}
+
+		this.startDate = event.getStartDate();
+		this.endDate = event.getEndDate();
+		this.eventText = event.getEventText();
+		this.isEventPrivate = event.isEventPrivate();
+	}
+
+	public ExpiredEventEntity(String eventTitle, long eventLeaderId, long[] eventMembersIdentities, Date startDate,
 			Date endDate, String eventText, boolean isEventPrivate) {
 		this.eventTitle = eventTitle;
-		this.eventLeader = eventLeader;
-		this.eventMembers = eventMembers;
+		this.eventLeaderId = eventLeaderId;
+		this.eventMemberIdentities = eventMembersIdentities;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.eventText = eventText;
 		this.isEventPrivate = isEventPrivate;
 	}
 
-	public ExpiredEventEntity(long id, String eventTitle, UserEntity eventLeader, Collection<UserEntity> eventMembers,
+	public ExpiredEventEntity(long id, String eventTitle, long eventLeaderId, long[] eventMembersIdentities,
 			Date startDate, Date endDate, String eventText, boolean isEventPrivate) {
 		this.id = id;
 		this.eventTitle = eventTitle;
-		this.eventLeader = eventLeader;
-		this.eventMembers = eventMembers;
+		this.eventLeaderId = eventLeaderId;
+		this.eventMemberIdentities = eventMembersIdentities;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.eventText = eventText;
@@ -88,20 +106,20 @@ public class ExpiredEventEntity {
 		this.eventTitle = eventTitle;
 	}
 
-	public UserEntity getEventLeader() {
-		return eventLeader;
+	public long getEventLeader() {
+		return eventLeaderId;
 	}
 
-	public void setEventLeader(UserEntity eventLeader) {
-		this.eventLeader = eventLeader;
+	public void setEventLeader(long eventLeaderId) {
+		this.eventLeaderId = eventLeaderId;
 	}
 
-	public Collection<UserEntity> getEventMembers() {
-		return eventMembers;
+	public long[] getEventMemberIdentities() {
+		return eventMemberIdentities;
 	}
 
-	public void setEventMembers(Collection<UserEntity> eventMembers) {
-		this.eventMembers = eventMembers;
+	public void setEventMemberIdentities(long[] eventMemberIdentities) {
+		this.eventMemberIdentities = eventMemberIdentities;
 	}
 
 	public Date getStartDate() {
@@ -138,8 +156,9 @@ public class ExpiredEventEntity {
 
 	@Override
 	public String toString() {
-		return "EventEntity [id=" + id + ", eventTitle=" + eventTitle + ", eventLeader=" + eventLeader + ", eventMembers="
-				+ eventMembers + ", startDate=" + startDate + ", endDate=" + endDate + ", eventText=" + eventText
-				+ ", isEventPrivate=" + isEventPrivate + "]";
+		return "ExpiredEventEntity [id=" + id + ", eventTitle=" + eventTitle + ", eventLeader=" + eventLeaderId
+				+ ", eventMemberIdentities=" + Arrays.toString(eventMemberIdentities) + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", eventText=" + eventText + ", isEventPrivate=" + isEventPrivate + "]";
 	}
+
 }

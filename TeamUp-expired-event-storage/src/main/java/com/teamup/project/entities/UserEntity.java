@@ -1,36 +1,15 @@
 package com.teamup.project.entities;
 
-
-import javax.persistence.Column;
-
-
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
-
-
-@Entity
-@Table (name="users")
 public class UserEntity {
 
-	@GeneratedValue
-	@Id
 	private long id;
 
-	@Column (name="nickname", nullable=false)
 	private String nickname;
 
-	@Column (name="hashed_password", nullable=false)
 	private String password;
 
-	@Column (name="email", nullable=false, unique=true)
 	private String email;
 
-	@Transient
 	private String loginStatus;
 
 	public UserEntity() {

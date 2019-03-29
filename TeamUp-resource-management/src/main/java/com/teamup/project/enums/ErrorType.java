@@ -10,7 +10,8 @@ public enum ErrorType {
 	EMPTY_TEAM(400, "Empty group"),
 	DB_ERROR(500, "Database error"), 
 	DATA_NOT_FOUND(500, "Data not found"), 
-	CANNOT_PARSE_DATE(304,"Cannot parse date"),
+	CANNOT_PARSE_DATE(400,"Cannot parse date"),
+	ITEM_NOT_REMOVED_PROPERLY(400, "Failed to remove item"),
 	HACKING_ATTEMPT(800, "Hacking attempt detected");
 
 	private final int internalErrorCode;
