@@ -1,6 +1,5 @@
 package com.teamup.project.logic;
 
-import java.util.Properties; 
 
 import org.springframework.stereotype.Controller;
 

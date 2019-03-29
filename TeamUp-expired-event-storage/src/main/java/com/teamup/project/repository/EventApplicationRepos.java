@@ -12,13 +12,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.teamup.project.entities.TeamApplicationEntity;
-import com.teamup.project.entities.TeamEntity;
+import com.teamup.project.entities.EventApplicationEntity;
 import com.teamup.project.enums.ErrorType;
 import com.teamup.project.exceptions.ApplicationException;
 
 @Repository
-public class TeamApplicationRepos {
+public class EventApplicationRepos {
 
 
 	@PersistenceContext
@@ -27,7 +26,7 @@ public class TeamApplicationRepos {
 // ---------------------------------------Create a new company-----------------------------
 
 	@Transactional(propagation=Propagation.REQUIRED)
-	public long createTeamApplication(TeamApplicationEntity app){
+	public long createEventApplication(EventApplicationEntity app){
 
 		entityManager.persist(app);
 
@@ -37,13 +36,13 @@ public class TeamApplicationRepos {
 // ------------------------------remove a company------------------
 
 	@Transactional(propagation=Propagation.REQUIRED)
-	public void removeTeamApplication(long id) throws ApplicationException {
+	public void removeEventApplication(long id) throws ApplicationException {
 
 
-		TeamApplicationEntity app = entityManager.find(TeamApplicationEntity.class, id);
+		EventApplicationEntity app = entityManager.find(EventApplicationEntity.class, id);
 		
 		if (app == null) {
-			throw new ApplicationException (ErrorType.DATA_NOT_FOUND, "The team application you're trying to remove does not exist");
+			throw new ApplicationException (ErrorType.DATA_NOT_FOUND, "The event application you're trying to remove does not exist");
 		}
 		
 		entityManager.remove(app);
@@ -52,28 +51,28 @@ public class TeamApplicationRepos {
 // -------------------------------------Getters----------------------------------------------
 
 	@Transactional(propagation=Propagation.REQUIRED)
-	public TeamApplicationEntity getTeamApplication(long appId) throws ApplicationException {
+	public EventApplicationEntity getEventApplication(long appId) throws ApplicationException {
 
-		TeamApplicationEntity app = entityManager.find(TeamApplicationEntity.class, appId);
+		EventApplicationEntity app = entityManager.find(EventApplicationEntity.class, appId);
 
 		return app;
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED)
-	public List<TeamApplicationEntity> getTeamApplicationsInTeam(long teamId) throws ApplicationException {
-		Query query = entityManager.createQuery("FROM TeamApplicationEntity WHERE team_id=:teamId").setParameter("teamId", teamId);
+	public List<EventApplicationEntity> getEventApplicationsInEvent(long eventId) throws ApplicationException {
+		Query query = entityManager.createQuery("FROM EventApplicationEntity WHERE event_id=:eventId").setParameter("eventId", eventId);
 		
 		@SuppressWarnings("unchecked")
-		List<TeamApplicationEntity> allApps = query.getResultList();
+		List<EventApplicationEntity> allApps = query.getResultList();
 		
 		return allApps;
 	}
 	
 	// ------------------------------------etc-------------------------------------
 
-	public boolean isTeamApplicationPending (long senderId, long teamId) {
-		Query query = entityManager.createQuery("FROM TeamApplicationEntity WHERE sender_id=:senderId AND team_id=:teamId")
-				.setParameter("senderId", senderId).setParameter("teamId", teamId);
+	public boolean isEventApplicationPending (long senderId, long eventId) {
+		Query query = entityManager.createQuery("FROM EventApplicationEntity WHERE sender_id=:senderId AND event_id=:eventId")
+				.setParameter("senderId", senderId).setParameter("eventId", eventId);
 		
 		List results = query.getResultList();
 

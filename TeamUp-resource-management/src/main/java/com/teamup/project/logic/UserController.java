@@ -1,31 +1,22 @@
 package com.teamup.project.logic;
 
-import java.time.LocalDate;
 
-
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.teamup.project.entities.TeamEntity;
 import com.teamup.project.entities.UserEntity;
 import com.teamup.project.enums.ErrorType;
 import com.teamup.project.exceptions.ApplicationException;
-import com.teamup.project.repository.TeamRepos;
 import com.teamup.project.repository.UserRepos;
 import com.teamup.project.utils.InputValidationUtils;
 
 @Controller
 public class UserController {
 
-
-	@Autowired
 	private UserRepos userRepos;
+	
+	@Autowired
+	public UserController (UserRepos userRepos) {}
 
 	// ------------------------------------Creates a user-------------------------------------
 

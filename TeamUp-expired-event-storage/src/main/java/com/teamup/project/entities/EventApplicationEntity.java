@@ -9,8 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table (name="team_applications")
-public class TeamApplicationEntity {
+@Table (name="event_applications")
+public class EventApplicationEntity {
 
 	@GeneratedValue
 	@Id
@@ -20,7 +20,7 @@ public class TeamApplicationEntity {
 	private UserEntity sender;
 
 	@ManyToOne (fetch=FetchType.EAGER)
-	private TeamEntity team;
+	private EventEntity event;
 
 	@Column (name="message", nullable=true)
 	private String message;
@@ -28,16 +28,16 @@ public class TeamApplicationEntity {
 	@Column (name="start_date", nullable=false)
 	private String startDate;
 
-	public TeamApplicationEntity() {
+	public EventApplicationEntity() {
 	}
 
-	public TeamApplicationEntity(UserEntity sender, String message, String startDate) {
+	public EventApplicationEntity(UserEntity sender, String message, String startDate) {
 		this.sender = sender;
 		this.message = message;
 		this.startDate = startDate;
 	}
 
-	public TeamApplicationEntity(long id, UserEntity sender, String message, String startDate) {
+	public EventApplicationEntity(long id, UserEntity sender, String message, String startDate) {
 		this.id = id;
 		this.sender = sender;
 		this.message = message;
@@ -60,12 +60,12 @@ public class TeamApplicationEntity {
 		this.sender = sender;
 	}
 
-	public TeamEntity getTeam() {
-		return team;
+	public EventEntity getEvent() {
+		return event;
 	}
 
-	public void setTeam(TeamEntity team) {
-		this.team = team;
+	public void setEvent(EventEntity event) {
+		this.event = event;
 	}
 
 	public String getMessage() {
@@ -86,7 +86,7 @@ public class TeamApplicationEntity {
 
 	@Override
 	public String toString() {
-		return "InvitationEntity [id=" + id + ", sender=" + sender + ", team=" + team + ", message=" + message
+		return "InvitationEntity [id=" + id + ", sender=" + sender + ", event=" + event + ", message=" + message
 				+ ", startDate=" + startDate + "]";
 	}
 	
