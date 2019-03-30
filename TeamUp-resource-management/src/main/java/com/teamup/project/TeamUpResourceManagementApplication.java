@@ -3,24 +3,18 @@ package com.teamup.project;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 import java.util.Properties;
 
 
 @SpringBootApplication
+@RibbonClient(name = "resource-management-service", configuration = RibbonResourceManagementConfig.class) 
 public class TeamUpResourceManagementApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TeamUpResourceManagementApplication.class, args);
-		
-		// Java properties that allow micro services
-		Properties systemProps = System.getProperties();
-		systemProps.put("javax.net.ssl.keyStorePassword","passwordForKeystore");
-		systemProps.put("javax.net.ssl.keyStore","pathToKeystore.ks");
-		systemProps.put("javax.net.ssl.trustStore", "pathToTruststore.ts");
-		systemProps.put("javax.net.ssl.trustStorePassword","passwordForTrustStore");
-		System.setProperties(systemProps);
 	}
 
 	// Providing a RestTemplate bean
