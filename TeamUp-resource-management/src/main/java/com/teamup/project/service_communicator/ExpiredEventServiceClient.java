@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.teamup.project.entities.EventEntity;
 import com.teamup.project.exceptions.ApplicationException;
 
-@FeignClient("expired-event-service")
+@FeignClient("gateway")
 public interface ExpiredEventServiceClient{
 
-	@PostMapping("/expired-events")
+	@PostMapping("/expired-event-service/expired-events")
 	public ResponseEntity<String> transferEventToExpiredServer (@RequestBody EventEntity event) throws ApplicationException;
 }
