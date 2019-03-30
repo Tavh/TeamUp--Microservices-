@@ -1,7 +1,5 @@
 package com.teamup.project.service_communicator;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -15,23 +13,19 @@ import com.teamup.project.exceptions.ApplicationException;
 import com.teamup.project.logic.EventController;
 
 @RestController
-public class ExpiredEventApplicationServiceDispatcher {
+public class ExpiredEventServiceDispatcher {
 
 	@Autowired
-	private RestTemplate restTemplate;
+	ExpiredEventServiceClient exEventServiceClient;
 	@Autowired
 	private EventController eventController;
 	
-	public void TransferEventToExpiredEventsServer(EventEntity event) throws ApplicationException{
-		
-		HttpEntity<EventEntity> requestBody = new HttpEntity<>(event);
-		
-		ResponseEntity<String> res = restTemplate.exchange("http://expired-event-service/expired-events", HttpMethod.POST, requestBody, String.class);
-
+	public void transferEventToExpiredEventsServer(EventEntity event) throws ApplicationException{
+		ResponseEntity<String> res = exEventServiceClient.transferEventToExpiredServer(event);
 		
 		if ((res.getStatusCode().equals(HttpStatus.OK))) {
 			eventController.removeEvent(event.getId());
 		}
-		
 	}
 }
+

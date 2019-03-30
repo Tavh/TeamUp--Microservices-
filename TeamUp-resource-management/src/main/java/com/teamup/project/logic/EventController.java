@@ -16,7 +16,7 @@ import com.teamup.project.enums.ErrorType;
 import com.teamup.project.exceptions.ApplicationException;
 import com.teamup.project.repository.EventRepos;
 import com.teamup.project.repository.UserRepos;
-import com.teamup.project.service_communicator.ExpiredEventApplicationServiceDispatcher;
+import com.teamup.project.service_communicator.ExpiredEventServiceDispatcher;
 
 @Controller
 public class EventController {
@@ -26,7 +26,7 @@ public class EventController {
 	@Autowired 
 	private UserRepos userRepos;
 	@Autowired 
-	private ExpiredEventApplicationServiceDispatcher exEventDispatcher;
+	private ExpiredEventServiceDispatcher exEventDispatcher;
 
 
 	// --------------------------------- Create ------------------------------------
@@ -86,7 +86,7 @@ public class EventController {
 			throw new ApplicationException (ErrorType.DATA_NOT_FOUND, "The event you're trying to remove does not exist");
 		}
 		
-		exEventDispatcher.TransferEventToExpiredEventsServer(event);
+		exEventDispatcher.transferEventToExpiredEventsServer(event);
 	}
 
 	// --------------------------------- Update ------------------------------------
