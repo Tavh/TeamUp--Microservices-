@@ -10,7 +10,7 @@ spring:
     platform: mysql
     url: jdbc:mysql://localhost:3306/team_up?serverTimezone=UTC
     username: root
-    password: Srduicukzh1
+    password: ...
     driverClassName: com.mysql.cj.jdbc.Driver
     
 feign:
